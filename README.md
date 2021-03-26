@@ -1,9 +1,10 @@
 # SmartPillsBox
  
-***Prototype demonstration This code aim to run a smart box supplied with a Passive Infrared Sensor PIR sensor. The significant files :***
+####Prototype demonstration This code aim to run a smart box supplied with a Passive Infrared Sensor PIR sensor. The significant files :
 
-****server.mjs****
-****./public/Index.html****
+#####server.mjs
+#####./public/Index.html****
+
 Please concider to install NodeJS Modules via NMP
 It works on Raspberry PI (Linux)
 Once You installed Node Modules in the project folder, Run: node server.mjs Check no errors on Terminal. Then visit localhost:3000
