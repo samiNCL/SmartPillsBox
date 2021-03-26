@@ -2,8 +2,8 @@
 
  <br />Prototype demonstration <br />
  **This code aim to run a smart box supplied with a Passive Infrared Sensor PIR sensor. The significant files :
- <br /> >server.mjs
- <br /> >./public/Index.html
+`<server.mjs>`
+`<./public/Index.html>`
 
 
  <br />Please concider to install NodeJS Modules via NMP
