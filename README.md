@@ -1,7 +1,7 @@
 # SmartPillsBox
 
  <br />Prototype demonstration <br />
- **This code aim to run a smart box supplied with a Passive Infrared Sensor PIR sensor. The significant files :
+ **This code aim to run a smart box supplied with a Passive Infrared Sensor PIR sensor. The significant files :<br />
 `<server.mjs>`
 `<./public/Index.html>`
 
