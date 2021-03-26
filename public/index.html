@@ -1,0 +1,262 @@
+<!-- 
+    Sami Saeed A Alghamdi 
+    170497910
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Box Pill Monetor</title>
+    <style>
+        body {
+            background-position: center;
+
+            ;
+            background-repeat: no-repeat;
+            background-image: url("p1.png");
+            background-color: rgb(170, 123, 123);
+            margin-top: 15%;
+            color: rgb(240, 255, 31);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .d {
+            margin-left: 20%;
+            margin-right: 35%;
+            padding: 2%;
+        }
+
+        h3 {
+            margin: 1%;
+        }
+
+        span {
+            color: chartreuse;
+        }
+
+        .blink_me {
+            animation: blinker 3s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="d">
+        <h2> Smart Pill Box</h2>
+
+        <div class="blink_me">
+            <h3><span id="t">Click Check Button</span> </h3>
+        </div>
+
+
+        <br />
+        <button onclick="fetchData()" style="height:em;font-size: 100%;background-color: aquamarine;">Check
+            Today</button>
+
+        <button style="height:em;font-size: 100%;background-color: aquamarine;"> Last 7 Days Line Chart</button>
+
+    </div>
+
+
+
+
+    <script>
+        let t = document.getElementById("t");
+        t.style.color = "black";
+        let notif = "No data recieved from the box yet"; // Notification for carers 
+        t.innerHTML = notif;
+        async function fetchData() {
+            const response = await fetch('/data')
+            if (!response.ok) throw new Error('Failure while fetching json')
+            data = await response.json()
+
+            if (data.box.OpenedIn != null) {
+                let r = data.box.OpenedIn;
+                let timeObj = new Date(r);
+                t.style.color = "green";
+                notif = "Box opened! " + timeObj;
+                t.innerHTML = notif;
+
+                
+
+                save(timeObj);
+
+
+
+            }
+
+        }
+
+        fetchData()
+
+
+
+        /* This bellow will be for future work. The code results appear in the terminal when box opened.
+        Uncomoment in fetch() to call check()
+         For simplicity,  I will unrealistically assume that the carer set a plan for the patient to have pills at any time. 
+        This means any occurrence of opening the box will be considered as taking a pill. In a real situation, I would use this function
+        to check the sensor data against the plan set for the patient. For example 2 Medicines , 3 times a day, at 10 am 4 pm 9 pm
+        The trial code here will run on the terminal only. 
+        Also, I would provide UI  for the carer to set these options. 
+
+        However, I provide bellow code that generate fake data like what PIR sensor would send. 
+        To  demonestrate the idea of the full functioning prototype. Note: results on terminal only
+         */
+
+        /* If the day is today , the sensor data valid then we check the hours of openeing the smart box */
+        // rday is recived day . Supposed to come from the sensor not assigned by us like in here. 
+
+        /* We will check if the smart box was opened within the range of time that the patient should take the pills or not 
+        
+        Let's assume  here that patient must take pills twice , every day, at 11 am 18 pm
+        we will generate 3 indecators
+        crInpt is the carer input. Carer decide the time of taking pills.
+        If the patient took first pill on the time range then , x=1 
+        If the patient took second pill on the time range then, y=1 
+        */
+
+
+        //Daily read then save permenantly for more use ( doesnt depends on any old data then!)
+        //make variables for searching for ! user input and that's it. 
+        // How many times take ? when ?  2
+        let crInpt1 = 11; //carer set first hour to take pills
+        let crInpt2 = 18; //carer set second hour to take pills
+
+        var rdata = { "1": 10, "2": 11, "3": 12, "4": 17, "5": 18, "6": 19 }; //recieved from sensor opened box times
+        let counter = 0; // counter to ocurences taking medicens on time with leeway -1 / +1 hour 
+        let x = 0;
+        let y = 0;
+
+        let saveTodayResult;
+
+        /* Decide the day */
+        let d = new Date();
+        let day = d.getDay();
+
+        /* Run the demonestration for future work */
+        checkDay(5) // Monday =1 Sunday = 7  If today is Friday try put 4 . Change parameter to see different results in the console
+
+        // rday is recieved day from json
+        /* If the data comes is not for today , the patient has not got medicens today*/
+        function checkDay(rday) {
+            if (rday == day) {
+                console.log("New data for today found");
+                checkTodayHours()
+
+            }
+            else {
+                console.log(" Sorry! there is no new data found for today. Make sure that patient is taking medicens!");
+            }
+
+        }
+
+
+        function checkTodayHours() {
+            for (const e in rdata) {
+                if (rdata[e] == crInpt1 || rdata[e] == crInpt1 - 1 || rdata[e] == crInpt1 + 1) { x = 1; }
+
+                if (rdata[e] == crInpt2 || rdata[e] == crInpt1 - 2 || rdata[e] == crInpt1 + 2) { y = 1 }
+
+            }
+
+        }
+
+
+        counter = x + y; // what the number represent ? 1 partially in a day . 2 good today. in a week iterate for days . in amonth iterate for month. +50% is so..so 80% is good. b4loow 50% severe 
+
+        //console.log(counter)
+
+        if (counter == 2) { console.log("Patient take medicens reguarly. No action needed."); saveTodayResult = 2; }
+        else if (counter == 1) { console.log("Patient take some medicen. May need some help"); saveTodayResult = 1; }
+        else { console.log("Action may needed. Patient not taking medicens."); saveTodayResult = 0; }
+
+        /* End the demonestration for future work */
+
+
+
+
+
+
+
+        function save(timeObj) {
+            // Here we will save sensor data (objects of dates)  after turning them to Days and Hours.
+            //Then these data can be used for track patient adherence over time 
+
+            let requestDB = indexedDB.open('SensorData', 1);
+
+
+            //onupgradeneeded  to  initialize database
+            //one of these three arrow functions will execute. If there is no db onupgradeneeded starts.. etc 
+
+            requestDB.onupgradeneeded = () => {
+                let db = requestDB.result;
+
+                if (!db.objectStoreNames.contains('Records')) {    // if there is no object store create one called records
+                    db.createObjectStore('Records', { keyPath: 'id', autoIncrement: true }) // id = keypath = day of week number
+                }
+
+
+
+                //console.log('Upgrade needed');
+            }
+
+            //onsuccess  every thing to deal with Indexed db goes here
+
+            let iDay = timeObj.getDay();
+            let iHour = timeObj.getHours();
+
+            requestDB.onsuccess = () => {
+                let db = requestDB.result;
+
+                let tr = db.transaction(['Records'], "readwrite"); // transiction obj
+
+                let addObject = tr.objectStore('Records'); // to be used in adding data
+
+                let someData = { day: iDay, hour: iHour }; //data to add
+                addObject.add(someData); // really adding
+
+
+
+                let searchx = addObject.getAll()
+                searchx.onsuccess = () => {
+                    console.log("Successful");
+
+                    console.log(searchx.result);
+                }
+
+                searchx.onerror = () => {
+                    console.log("Error");
+
+                    console.log(searchx.error);
+                }
+
+
+            }
+
+
+            //onerror 
+
+            requestDB.onerror = () => {
+                console.log(requestDB.error)
+            }
+        }
+    </script>
+
+
+<!-- This chart in the iframe element not depends on real sensor data. Just prototype demonestration. -->
+<!-- <iframe aria-setsize="20%" src="/chart/weeklyChart.html"></iframe> --> 
+
+</body>
+
+</html>
