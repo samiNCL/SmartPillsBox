@@ -16,6 +16,18 @@ var i = 0
 console.log("Hi")
 //Normal situation = Blue LED flashes slowly and Buzzer ticks regularly
 
+function getLedValue() {
+    return led.readSync();
+}
+
+function turnOffLed() {
+    led.writeSync(0);
+}
+
+function turnOnLed() {
+    led.writeSync(1);
+}
+
 function toggleLed() {
     const ledValue = getLedValue()
     if (ledValue) {
@@ -50,6 +62,10 @@ setInterval(toggleLed, 1000)
 //PIR sensor detects if the box opened and report that 
 
 const inputPin = new Gpio(14, 'in') //Gpio 14 == pin number 8 in RaspberryPi
+function getInputValue() {
+    return inputPin.readSync();
+}
+
 function readInput() {
     const inputValue = getInputValue()
     if (inputValue == 1) {
