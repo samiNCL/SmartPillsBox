@@ -12,47 +12,13 @@
     <title>Smart Box Pill Monetor</title>
     <style>
         body {
-            background-position: center;
-
-            ;
-            background-repeat: no-repeat;
-            background-image: url("p1.png");
-            background-color: rgb(170, 123, 123);
-            margin-top: 15%;
-            color: rgb(240, 255, 31);
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-        }
-
-        .d {
-            margin-left: 20%;
-            margin-right: 35%;
-            padding: 2%;
-        }
-
-        h3 {
-            margin: 1%;
-        }
-
-        span {
-            color: chartreuse;
-        }
-
-        .blink_me {
-            animation: blinker 3s linear infinite;
-        }
-
-        @keyframes blinker {
-            50% {
-                opacity: 0;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
 
-    <div class="d">
+    <div class="content-container">
         <h2> Smart Pill Box</h2>
 
         <div class="blink_me">
@@ -71,35 +37,7 @@
 
 
 
-    <script>
-        let t = document.getElementById("t");
-        t.style.color = "black";
-        let notif = "No data recieved from the box yet"; // Notification for carers 
-        t.innerHTML = notif;
-        async function fetchData() {
-            const response = await fetch('/data')
-            if (!response.ok) throw new Error('Failure while fetching json')
-            data = await response.json()
-
-            if (data.box.OpenedIn != null) {
-                let r = data.box.OpenedIn;
-                let timeObj = new Date(r);
-                t.style.color = "green";
-                notif = "Box opened! " + timeObj;
-                t.innerHTML = notif;
-
-                
-
-                save(timeObj);
-
-
-
-            }
-
-        }
-
-        fetchData()
-
+    <script src="main.js"></script>
 
 
         /* This bellow will be for future work. The code results appear in the terminal when box opened.
@@ -223,40 +161,5 @@
 
                 let addObject = tr.objectStore('Records'); // to be used in adding data
 
-                let someData = { day: iDay, hour: iHour }; //data to add
-                addObject.add(someData); // really adding
-
-
-
-                let searchx = addObject.getAll()
-                searchx.onsuccess = () => {
-                    console.log("Successful");
-
-                    console.log(searchx.result);
-                }
-
-                searchx.onerror = () => {
-                    console.log("Error");
-
-                    console.log(searchx.error);
-                }
-
-
-            }
-
-
-            //onerror 
-
-            requestDB.onerror = () => {
-                console.log(requestDB.error)
-            }
-        }
-    </script>
-
-
-<!-- This chart in the iframe element not depends on real sensor data. Just prototype demonestration. -->
-<!-- <iframe aria-setsize="20%" src="/chart/weeklyChart.html"></iframe> --> 
-
-</body>
-
+    let someData = { day: iDay, hour: iHour }; //data to add
 </html>
