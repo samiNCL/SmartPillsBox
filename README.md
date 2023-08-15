@@ -1,22 +1,44 @@
-# SmartPillsBox
+# SmartPillsBox: A Smart Medication Management System
 
-## Prototype demonstration 
-   This code aim to run a smart box supplied with a Passive Infrared Sensor PIR sensor. The significant files :
-`<server.mjs>`
-`<./public/Index.html>`
+## Overview 
+   SmartPillsBox is a prototype of a smart medication management system. It is designed to assist people with chronic conditions in tracking their medication intake. The system is equipped with a Passive Infrared Sensor (PIR sensor) and is controlled by a server script (`server.mjs`) and a web interface (`./public/Index.html`).
 
 
-### Please concider to install NodeJS Modules via NMP
-##### It works on Raspberry PI (Linux)
-##### Once You installed Node Modules in the project folder, Run: `<node server.mjs>` Check no errors on Terminal. Then visit  `<localhost:3000>`
+## Installation and Setup
 
-##### If you do not have raspberry pi or PIR , Open the`<./public/Index.html>`  and read in-code comments to see how it can be demonstrated based on fake data   (Not from the sensor data ) on the Console.
+### Prerequisites
+* Node.js and npm
+* Raspberry PI (Linux)
+
+### Steps
+1. Clone the repository to your local machine.
+2. Navigate to the project folder.
+3. Install the necessary Node.js modules via npm by running `npm install`.
+4. Run the server script with the command `node server.mjs`. Ensure there are no errors in the terminal.
+5. Visit `localhost:3000` in your web browser to access the web interface.
+
+Note: If you do not have a Raspberry PI or PIR, you can still demonstrate the system based on fake data (not from the sensor data). To do this, open `./public/Index.html` and follow the in-code comments.
  
  
- # What does this prototype do?
- It is a smart pillbox for people with chronic conditions who need regular help in tracking their intake. So when the box opened on the time range that they should take the medicine, this will be reported positively. Otherwise, there is a problem. There are in-code comments that describe the idea more technically.
+ ## Usage
  
-Thanks, 
+ SmartPillsBox is designed to help people with chronic conditions track their medication intake. When the box is opened within the prescribed time range for taking the medication, this will be reported positively. If the box is not opened within this time range, the system will report a problem.
+ 
+ For a more technical description of how the system works, refer to the in-code comments.
+ 
+## Contribution
+
+We welcome contributions from other developers. Please follow the coding standards used throughout the project and submit your pull requests for review.
+
+## License
+
+This project is licensed under the ISC License.
+
+## Contact Information
+
+For any queries or further information, please contact the project maintainer, Sami, at samiNCL@gmail.com.
+
+Thank you, 
 Sami 
 Fri 26 Mar 2021
 
