@@ -22,23 +22,16 @@ Note: If you do not have a Raspberry PI or PIR, you can still demonstrate the sy
  
  ## Usage
  
- SmartPillsBox is designed to help people with chronic conditions track their medication intake. When the box is opened within the prescribed time range for taking the medication, this will be reported positively. If the box is not opened within this time range, the system will report a problem.
+SmartPillsBox is designed to help people with chronic conditions track their medication intake. When the box is opened within the prescribed time range for taking the medication, this will be reported positively. If the box is not opened within this time range, the system will report a problem.
  
- For a more technical description of how the system works, refer to the in-code comments.
+For a more technical description of how the system works, refer to the in-code comments.
  
-## Contribution
 
-We welcome contributions from other developers. Please follow the coding standards used throughout the project and submit your pull requests for review.
-
-## License
-
-This project is licensed under the ISC License.
-
-## Contact Information
-
-For any queries or further information, please contact the project maintainer, Sami, at samiNCL@gmail.com.
 
 Thank you, 
+
 Sami 
 Fri 26 Mar 2021
 
+Enhanced by Sweep [AI bot]
+Tu 15 August 2023
