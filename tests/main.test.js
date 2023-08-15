@@ -1,5 +1,5 @@
 import { fetchData, save } from '../public/js/main.js';
-import { toggleLed, readInput } from '../server.mjs';
+import { toggleLed, readInput, getLedValue, turnOffLed, turnOnLed, getInputValue } from '../server.mjs';
 
 // Unit tests for fetchData function
 test('fetchData function', () => {
