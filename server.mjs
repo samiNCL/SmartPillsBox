@@ -17,13 +17,33 @@ console.log("Hi")
 //Normal situation = Blue LED flashes slowly and Buzzer ticks regularly
 
 function toggleLed() {
-    const currentValue = led.readSync()
-    if (currentValue) {
-        led.writeSync(0)  // turn off
+    const ledValue = getLedValue()
+    if (ledValue) {
+        turnOffLed()  
     } else {
-        led.writeSync(1)  // turn on
+        turnOnLed()  
     }
+}
 
+// Unit test for toggleLed function
+function testToggleLed() {
+    // Test when ledValue is true
+    getLedValue = () => true
+    turnOffLed = jest.fn()
+    turnOnLed = jest.fn()
+    toggleLed()
+    expect(turnOffLed).toHaveBeenCalled()
+    expect(turnOnLed).not.toHaveBeenCalled()
+
+    // Test when ledValue is false
+    getLedValue = () => false
+    turnOffLed = jest.fn()
+    turnOnLed = jest.fn()
+    toggleLed()
+    expect(turnOffLed).not.toHaveBeenCalled()
+    expect(turnOnLed).toHaveBeenCalled()
+}
+testToggleLed()
 }
 setInterval(toggleLed, 1000)
 
@@ -31,12 +51,32 @@ setInterval(toggleLed, 1000)
 
 const inputPin = new Gpio(14, 'in') //Gpio 14 == pin number 8 in RaspberryPi
 function readInput() {
-    const value = inputPin.readSync()
-    if (value == 1) {
-        sensorUpdate(data)
+    const inputValue = getInputValue()
+    if (inputValue == 1) {
+        updateSensorData(data)
+        console.log("Sensor data sent")
+    }
+}
 
-        console.log("Reading sent")
+// Unit test for readInput function
+function testReadInput() {
+    // Test when inputValue is 1
+    getInputValue = () => 1
+    updateSensorData = jest.fn()
+    console.log = jest.fn()
+    readInput()
+    expect(updateSensorData).toHaveBeenCalled()
+    expect(console.log).toHaveBeenCalledWith("Sensor data sent")
 
+    // Test when inputValue is not 1
+    getInputValue = () => 0
+    updateSensorData = jest.fn()
+    console.log = jest.fn()
+    readInput()
+    expect(updateSensorData).not.toHaveBeenCalled()
+    expect(console.log).not.toHaveBeenCalled()
+}
+testReadInput()
 
     }
 }
